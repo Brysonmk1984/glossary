@@ -25,6 +25,15 @@
 			<li aria-current={$page.url.pathname.startsWith('/definitions') ? 'page' : undefined}>
 				<a href="/definitions">Definitions</a>
 			</li>
+			<li aria-current={$page.url.pathname.startsWith('/tags') ? 'page' : undefined}>
+				<a href="/tags">Tags</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/user-entry') ? 'page' : undefined}>
+				<a href="/user-entry">Contribute Entry</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/contact') ? 'page' : undefined}>
+				<a href="/contact">Contact</a>
+			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />

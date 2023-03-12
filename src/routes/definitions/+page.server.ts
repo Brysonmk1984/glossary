@@ -13,14 +13,14 @@ export async function load(ctx) {
       },
     });
 
-    const { data }: StrapiDataResponse = await response.json();
+    const { data: definitionData }: StrapiDataResponse = await response.json();
 
-    const definitions = data.map((item: StrapiData) => item.attributes);
-    if (!definitions.length) {
+    const definitions = definitionData.map((item) => item.attributes);
+    if (!definitions || !definitions?.length) {
       throw new Error("No definition data");
     }
 
-    return { definitions };
+    return { definitions: definitionData };
   } catch (e) {
     console.error(e);
     throw error(404, "Not found");

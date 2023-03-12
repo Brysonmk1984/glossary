@@ -45,7 +45,10 @@ body {
 }
 
 h1,
-h2,
+h2 {
+  text-transform: capitalize;
+}
+
 p {
   font-weight: 400;
 }
