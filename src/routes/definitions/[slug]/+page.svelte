@@ -9,7 +9,7 @@
   export let data : GlossaryDefinition;
   onMount(async () => {
     
-    const response = await fetch(`http://127.0.0.1:1337/api/definitions?filters[slug][$eq]=${slug}`, {
+    const response = await fetch(`http://127.0.0.1:1337/api/definitions?filters[slug][$eq]=${slug}&populate=*`, {
       method: "GET",
       headers: {
         Authorization:
@@ -18,7 +18,7 @@
     });
 
 
-    const {data : responseData} : StrapiDataResponse  = await response.json();
+    const {data : responseData} : StrapiDataResponse<GlossaryDefinition>  = await response.json();
     data = responseData[0].attributes;
     const {description, advanced_description} = data;
  
@@ -31,7 +31,7 @@
 </script>
 
 { #if !!data }
-  <h1>{data.phrase}</h1>
+  <h1>{data.entry}</h1>
 
   <h2>Mundane Description</h2>
   <p>

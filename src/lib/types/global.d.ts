@@ -1,16 +1,16 @@
 declare global {
-  export interface StrapiDataResponse {
-    data: Array<StrapiData>;
+  export interface StrapiDataResponse<T> {
+    data: Array<StrapiData<T>>;
   }
-  export interface StrapiData {
+  export interface StrapiData<T extends GlossaryDefinition | GlossaryTag> {
     id: number;
-    attributes: GlossaryDefinition;
+    attributes: T;
   }
 
   export interface GlossaryDefinition {
     description: string;
     advanced_description: string;
-    phrase: string;
+    entry: string;
     date: string;
     link: string;
     author: string;
@@ -18,6 +18,13 @@ declare global {
     createdAt: string;
     publishedAt: string;
     slug: string;
+  }
+
+  export interface GlossaryTag {
+    tag: string;
+    slug: string;
+    updatedAt: string;
+    createdAt: string;
   }
 }
 export {};

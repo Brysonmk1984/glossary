@@ -13,9 +13,10 @@ export async function load(ctx) {
       },
     });
 
-    const { data }: StrapiDataResponse = await response.json();
+    const { data }: StrapiDataResponse<GlossaryDefinition> = await response.json();
 
-    const definitions = data.map((item: StrapiData) => item.attributes);
+    const definitions = data.map((item) => item.attributes);
+    console.log({ definitions });
     if (!definitions.length) {
       throw new Error("No definition data");
     }

@@ -7,7 +7,6 @@ import { onMount } from 'svelte';
   onMount(async () => {
     const response = await fetch("http://127.0.0.1:1337/api/definitions", {
       method: "GET",
-      mode: "cors",
       headers: {
         Authorization:
         `Bearer ${PUBLIC_STRAPI_KEY}`,
@@ -15,8 +14,8 @@ import { onMount } from 'svelte';
     });
 
     try{
-      const { data : definitionData } : StrapiDataResponse = (await response.json());
-
+      const { data : definitionData } : StrapiDataResponse<GlossaryDefinition> = (await response.json());
+        console.log({definitionData});
       const definitions = definitionData.map((item) => item.attributes);
       if (!definitions || !definitions?.length) {
         throw new Error("No definition data");
@@ -40,7 +39,7 @@ import { onMount } from 'svelte';
   { #if !!data && data.length }
     <ul>
       {#each data as definition}
-        <li><a href={`/definitions/${definition.slug}`}>{definition.phrase}</a></li>
+        <li><a href={`/definitions/${definition.slug}`}>{definition.entry}</a></li>
       {/each}
     </ul>
   {:else}
