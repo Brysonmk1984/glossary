@@ -1,33 +1,5 @@
 <script lang="ts">
-  import {page} from "$app/stores";
-  import { PUBLIC_STRAPI_KEY } from "$env/static/public";
-  import { marked }from "marked";
-  import { onMount } from "svelte";
-  
-  const slug = $page.params.slug;
-
   export let data : GlossaryDefinition;
-  onMount(async () => {
-    
-    const response = await fetch(`http://127.0.0.1:1337/api/definitions?filters[slug][$eq]=${slug}&populate=*`, {
-      method: "GET",
-      headers: {
-        Authorization:
-        `Bearer ${PUBLIC_STRAPI_KEY}`,
-      },
-    });
-
-
-    const {data : responseData} : StrapiDataResponse<GlossaryDefinition>  = await response.json();
-    data = responseData[0].attributes;
-    const {description, advanced_description} = data;
- 
-    data.description = marked.parse(description);
-    data.advanced_description = marked.parse(advanced_description);
-    console.log({data});
-  });
-
-
 </script>
 
 { #if !!data }
@@ -43,6 +15,7 @@
     {@html data.advanced_description}
   </p>
 
+  <h3>Author</h3>
   <dl>
     <span>
       <dt>Entry Author:</dt>
@@ -51,6 +24,16 @@
     <dt>Date Added:</dt>
     <dd>{data.createdAt}</dd>
   </dl>
+
+  {#if !!data.tags?.length}
+    <h3>Tags</h3>
+    <ul>
+      {#each data.tags as {tag}}
+        <li>{tag}</li>
+      {/each}
+    </ul>
+  {/if}
+
 {:else}
   <strong>Loading...</strong>
 {/if }
