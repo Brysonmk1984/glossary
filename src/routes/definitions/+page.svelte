@@ -33,8 +33,7 @@ import { onMount } from 'svelte';
 
 </script>
 
-<h1>Our Dystopia</h1>
-<h2>A Glossary</h2>
+<h1>Definitions</h1>
 <section>
   { #if !!data && data.length }
     <ul>

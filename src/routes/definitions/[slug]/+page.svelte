@@ -1,21 +1,20 @@
 <script lang="ts">
+import DefinitionSection from "$lib/components/DefinitionSection.svelte";
+import ContextSection from "$lib/components/ContextSection.svelte";
+import TagsSection from "$lib/components/TagsSection.svelte";
+
   export let data : GlossaryDefinition;
 </script>
 
 { #if !!data }
   <h1>{data.entry}</h1>
 
-  <h2>Mundane Description</h2>
-  <p>
-    {@html data.description}
-  </p>
+  <DefinitionSection description={data.description} />
 
-  <h2>Context</h2>
-  <p>
-    {@html data.advanced_description}
-  </p>
+  <ContextSection context={data.advanced_description} />
 
-  <h3>Author</h3>
+
+  <!-- <h3>Author</h3>
   <dl>
     <span>
       <dt>Entry Author:</dt>
@@ -23,15 +22,10 @@
     </span>
     <dt>Date Added:</dt>
     <dd>{data.createdAt}</dd>
-  </dl>
+  </dl> -->
 
   {#if !!data.tags?.length}
-    <h3>Tags</h3>
-    <ul>
-      {#each data.tags as {tag}}
-        <li>{tag}</li>
-      {/each}
-    </ul>
+    <TagsSection tags={data.tags} />
   {/if}
 
 {:else}

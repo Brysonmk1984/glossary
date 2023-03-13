@@ -35,7 +35,7 @@
   </script>
 
 
-<h1>These are the tags</h1>
+<h1>Tags</h1>
 <ul>
   { #if !!data && data.length }
     {#each data as tag }
