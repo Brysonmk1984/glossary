@@ -12,7 +12,6 @@
 <style>
   li {
     font-size: 1.3em;
-
     margin-bottom:2em;
   }
   li a {

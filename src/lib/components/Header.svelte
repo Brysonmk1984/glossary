@@ -1,7 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
 </script>
 
 <header>
@@ -52,7 +50,6 @@
 		height: 100%;
 	}
 	.corner a:hover {
-		color: rgba(0,0,0,.7);
 		text-decoration: none;
 	}
 

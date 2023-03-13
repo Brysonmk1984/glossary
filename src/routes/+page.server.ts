@@ -21,7 +21,10 @@ export async function load(ctx) {
       throw new Error("No definition data");
     }
 
-    return { definitions };
+    const latestDefinitions = definitions.slice(0, 3);
+    const definitionOfTheDay = definitions[Math.floor(Math.random() * definitions.length - 1) + 1];
+
+    return { latestDefinitions, definitionOfTheDay };
   } catch (e) {
     console.error(e);
     throw error(404, "Not found");
