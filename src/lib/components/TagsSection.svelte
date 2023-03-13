@@ -13,9 +13,7 @@
 
 <style>
   ul {
-    list-style: none;
     display:flex;
-    padding:0px;
   }
   ul li {
     padding:5px;

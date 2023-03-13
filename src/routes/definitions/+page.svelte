@@ -1,11 +1,12 @@
 <script lang="ts">
 import { PUBLIC_STRAPI_KEY } from '$env/static/public';
+import DefinitionBlurb from '$lib/components/DefinitionBlurb.svelte';
 import { onMount } from 'svelte';
 
 
   export let data : GlossaryDefinition[];
   onMount(async () => {
-    const response = await fetch("http://127.0.0.1:1337/api/definitions", {
+    const response = await fetch("http://127.0.0.1:1337/api/definitions?sort[0]=entry", {
       method: "GET",
       headers: {
         Authorization:
@@ -23,13 +24,10 @@ import { onMount } from 'svelte';
 
       data = definitions;
 
-   
     }catch(error){
       console.error(error);
     }
-
   });
-
 
 </script>
 
@@ -38,10 +36,16 @@ import { onMount } from 'svelte';
   { #if !!data && data.length }
     <ul>
       {#each data as definition}
-        <li><a href={`/definitions/${definition.slug}`}>{definition.entry}</a></li>
+        <DefinitionBlurb {definition} />
       {/each}
     </ul>
   {:else}
     <strong>Loading...</strong>
   {/if}
 </section>
+
+<style>
+  ul {
+    margin-left :40px;
+  }
+</style>
