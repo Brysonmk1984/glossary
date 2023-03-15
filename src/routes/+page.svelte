@@ -6,7 +6,7 @@
 </script>
 
 <section>
-  <h2>Definition of the Day</h2>
+  <h1>Definition of the Day</h1>
   <div class="definition-of-the-day">
     <a  href={`/definitions/${data.definitionOfTheDay.slug}`}>{data.definitionOfTheDay.entry}</a>
     <p>{data.definitionOfTheDay.description}</p>
