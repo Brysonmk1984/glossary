@@ -1,11 +1,11 @@
-import { STRAPI_KEY } from "$env/static/private";
+import { API_ENDPOINT, STRAPI_KEY } from "$env/static/private";
 import { error } from "@sveltejs/kit";
 
 export async function load(ctx) {
   const { fetch, locals, params, platform, getClientAddress, route, url, request } = ctx;
 
   try {
-    const response = await fetch("http://127.0.0.1:1337/api/definitions", {
+    const response = await fetch(`${API_ENDPOINT}definitions`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -14,6 +14,9 @@ export async function load(ctx) {
     });
 
     const { data }: StrapiDataResponse<GlossaryDefinition> = await response.json();
+    if (!data) {
+      throw new Error("No definition data");
+    }
 
     const definitions = data.map((item) => item.attributes);
     console.log({ definitions });

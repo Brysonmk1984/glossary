@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { PUBLIC_STRAPI_KEY } from '$env/static/public';
+  import { PUBLIC_STRAPI_KEY, PUBLIC_API_ENDPOINT } from '$env/static/public';
   import { onMount } from 'svelte';
   
   
     export let data : GlossaryTag[];
     onMount(async () => {
-      const response = await fetch("http://127.0.0.1:1337/api/tags?sort[0]=tag&populate=*", {
+      const response = await fetch(`${PUBLIC_API_ENDPOINT}tags?sort[0]=tag&populate=*`, {
         method: "GET",
         headers: {
           Authorization:
@@ -16,15 +16,13 @@
       try{
         const cake : StrapiDataResponse<GlossaryTag> = (await response.json());
         const { data : tagData } = cake;
-          console.log({tagData});
+
         const tags = tagData.map((item) => item.attributes);
         if (!tags || !tags?.length) {
           throw new Error("No tag data");
         }
         
         data = tags;
-        
-        console.log({data})
       }catch(error){
         console.error(error);
       }
