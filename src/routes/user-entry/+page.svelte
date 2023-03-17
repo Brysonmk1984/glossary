@@ -3,4 +3,14 @@
   export let data;
 </script>
 
-<h1>Have an Entry? Enter it Below & we'll review. </h1>
+<h1>Contribute a definition</h1>
+
+<div>
+  <strong>coming soon</strong>
+</div>
+
+<style>
+  div {
+    margin:20px auto 0px;
+  }
+</style>
