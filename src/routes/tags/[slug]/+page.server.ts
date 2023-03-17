@@ -1,7 +1,7 @@
 import { API_ENDPOINT, STRAPI_KEY } from "$env/static/private";
 
 export async function load({ params }) {
-  const response = await fetch(`${API_ENDPOINT}api/tags?filters[slug][$eq]=${params.slug}&populate=*`, {
+  const response = await fetch(`${API_ENDPOINT}tags?filters[slug][$eq]=${params.slug}&populate=*`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${STRAPI_KEY}`,
