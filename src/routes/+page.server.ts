@@ -5,7 +5,7 @@ export async function load(ctx) {
   const { fetch, locals, params, platform, getClientAddress, route, url, request } = ctx;
 
   try {
-    const response = await fetch(`${API_ENDPOINT}definitions`, {
+    const response = await fetch(`${API_ENDPOINT}definitions?sort[0]=createdAt:desc`, {
       method: "GET",
       mode: "cors",
       headers: {
