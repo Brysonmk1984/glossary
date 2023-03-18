@@ -19,7 +19,7 @@ export async function load(ctx) {
     }
 
     const definitions = data.map((item) => item.attributes);
-    console.log({ definitions });
+
     if (!definitions.length) {
       throw new Error("No definition data");
     }
