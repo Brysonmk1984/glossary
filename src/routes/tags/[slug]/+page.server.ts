@@ -10,10 +10,8 @@ export async function load({ params }) {
 
   const { data: responseData }: StrapiDataResponse<StrapiDataGlossaryTag> = await response.json();
   const matchingTag = responseData[0].attributes;
-  console.log(matchingTag);
 
   const definitionList = matchingTag.definitions.data.map((def) => def.attributes);
 
-  console.log({ definitionList });
   return { definitionList };
 }

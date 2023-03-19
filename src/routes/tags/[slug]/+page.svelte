@@ -5,7 +5,6 @@ import DefinitionBlurb from "$lib/components/DefinitionBlurb.svelte";
 
   export let data;
 
-  console.log(data);
 </script>
 
 

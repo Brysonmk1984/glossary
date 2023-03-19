@@ -4,7 +4,7 @@ import ErrorMessage from '$lib/components/ErrorMessage.svelte';
 
 
   let entry = "";
-  $: entryAsSlug = entry.toLowerCase().replace(/[ _]/g, "-");
+  $: entryAsSlug = entry.toLowerCase().replace(/[ _]/g, "-").replace(/[.,;:/'"{}\[\]()?<>`~!@#$%^&*|\\]/g, "");
 	export let data;
   export let form : { message : string, field : string | null } ;
 
@@ -21,22 +21,23 @@ import ErrorMessage from '$lib/components/ErrorMessage.svelte';
 
   {:else}
     <p>
-      We're looking to grow our number of definitions in order to make this site more useful. Please submit your own with the form below and we'll review it to verify it's of sufficient quality. If so, it will be published along side the rest of the definitions.
+      We're looking to grow our number of definitions in order to make this site more useful. Please submit your own with the form below and we'll review it to verify it's of reasonable quality. If so, it will be published along side the rest of the definitions.
+    </p>
   {/if}
   <form method="POST">
 
       <div class="input-container">
-        <input class={ form?.field === 'entry' ? "invalid" : "" } name="entry" type="text" maxLength="50" placeholder="Entry (required)" bind:value={entry} required />
+        <input class={ form?.field === 'entry' ? "invalid" : "" } name="entry" type="text" minLength="3" maxLength="50" placeholder="Entry (required)" bind:value={entry} required />
         <input class={ form?.field === 'slug ' ? "invalid" : ""} name="slug" type="text" maxLength="50" placeholder="Slug" bind:value={entryAsSlug} readonly required />
       </div>
-      <textarea class={ form?.field === 'description' ? "invalid" : ""} name="description" maxLength="1500" placeholder="Entry Definition (required)" ></textarea>
-      <span class="character-count">Max: 1,500 characters</span>
+      <textarea class={ form?.field === 'description' ? "invalid" : ""} name="description" minLength="50" maxLength="1000" placeholder="Entry Definition (required)" required></textarea>
+      <span class="character-count">50 - 1,000 characters</span>
       
-      <textarea class={ form?.field === 'advanced_description' ? "invalid" : ""} name="advanced_description" placeholder="Extra Context"></textarea>
+      <textarea class={ form?.field === 'advanced_description' ? "invalid" : ""} name="advanced_description" minLength="50" placeholder="Extra Context"></textarea>
       
       <div class="input-container">
-        <input class={ form?.field === 'author' ? "invalid" : " "} name="author" type="text" maxLength="50" placeholder="Author (required)" required />
-        <input class={ form?.field === 'link' ? "invalid" : "" } name="link" type="text" maxLength="200" placeholder="Link" />
+        <input class={ form?.field === 'author' ? "invalid" : ""} name="author" type="text" minLength="3" maxLength="50" placeholder="Author (required)" required />
+        <input class={ form?.field === 'link' ? "invalid" : "" } name="link" type="text" minLength="10" maxLength="200" placeholder="Link" />
       </div>
       <button>Send</button>
   
