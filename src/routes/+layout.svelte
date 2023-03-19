@@ -1,4 +1,7 @@
 <script>
+import { PUBLIC_CMS_LOGIN } from '$env/static/public';
+
+
 	import Header from '../lib/components/Header.svelte';
 	import './styles.css';
 </script>
@@ -14,6 +17,7 @@
 		<p>&copy; Our Dystopia 2023</p>
 		<a href="/about">About</a>
 		<a href="/contact">Contact</a>
+		<a href={PUBLIC_CMS_LOGIN}>CMS Login</a>
 	</footer>
 </div>
 

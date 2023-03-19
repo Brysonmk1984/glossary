@@ -1,21 +1,32 @@
 <script lang="ts">
+import ErrorMessage from '$lib/components/ErrorMessage.svelte';
+
 
 
   let entry = "";
   $: entryAsSlug = entry.toLowerCase().replace(/[ _]/g, "-");
+	export let data;
+  export let form : { message : string };
+  let formErrorMessage = form?.message
+
+  $: formErrorMessage;
 
 </script>
 
 <h1>Contribute a definition</h1>
 
 <div>
+
+  {#if !!formErrorMessage}
+    <ErrorMessage error={formErrorMessage} />
+  {/if}
   <form method="POST">
 
       <div class="input-container">
         <input name="entry" type="text" maxLength="50" placeholder="Entry (required)" bind:value={entry} required />
         <input name="slug" type="text" maxLength="50" placeholder="Slug" bind:value={entryAsSlug} readonly required />
       </div>
-      <textarea name="description" maxLength="1500" placeholder="Entry Definition (required)" required></textarea>
+      <textarea name="description" maxLength="1500" placeholder="Entry Definition (required)" ></textarea>
       <textarea name="advanced_description" placeholder="Extra Context"></textarea>
       <div class="input-container">
         <input name="author" type="text" maxLength="50" placeholder="Author (required)" required />
