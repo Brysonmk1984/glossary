@@ -1,5 +1,8 @@
 <script lang="ts">
+import { applyAction, enhance } from '$app/forms';
+import { invalidateAll } from '$app/navigation';
 import ErrorMessage from '$lib/components/ErrorMessage.svelte';
+import SuccessMessage from '$lib/components/SuccessMessage.svelte';
 
 
 
@@ -9,40 +12,58 @@ import ErrorMessage from '$lib/components/ErrorMessage.svelte';
   export let form : { message : string, field : string | null } ;
 
   $: form
-
+  export let successfulSubmission = false;
 </script>
 
 <h1>Contribute a definition</h1>
 
-<div>
+{#if successfulSubmission}
+  <SuccessMessage />
+{:else}
+  <div>
+    {#if !!form?.message}
+      <ErrorMessage error={form?.message} />
 
-  {#if !!form?.message}
-    <ErrorMessage error={form?.message} />
+    {:else}
+      <p>
+        We're looking to grow our number of definitions in order to make this site more useful. Please submit your own with the form below and we'll review it to verify it's of reasonable quality. If so, it will be published along side the rest of the definitions.
+      </p>
+    {/if}
+    <form method="POST" use:enhance={(ctx) => {
+      // `form` is the `<form>` element
+      // `data` is its `FormData` object
+      // `action` is the URL to which the form is posted
+      // `cancel()` will prevent the submission
+        
+      return async ({ result }) => {
+        // `result` is an `ActionResult` object
 
-  {:else}
-    <p>
-      We're looking to grow our number of definitions in order to make this site more useful. Please submit your own with the form below and we'll review it to verify it's of reasonable quality. If so, it will be published along side the rest of the definitions.
-    </p>
-  {/if}
-  <form method="POST">
+        form = result.data;
 
-      <div class="input-container">
-        <input class={ form?.field === 'entry' ? "invalid" : "" } name="entry" type="text" minLength="3" maxLength="50" placeholder="Entry (required)" bind:value={entry} required />
-        <input class={ form?.field === 'slug ' ? "invalid" : ""} name="slug" type="text" maxLength="50" placeholder="Slug" bind:value={entryAsSlug} readonly required />
-      </div>
-      <textarea class={ form?.field === 'description' ? "invalid" : ""} name="description" minLength="50" maxLength="1000" placeholder="Entry Definition (required)" required></textarea>
-      <span class="character-count">50 - 1,000 characters</span>
-      
-      <textarea class={ form?.field === 'advanced_description' ? "invalid" : ""} name="advanced_description" minLength="50" placeholder="Extra Context"></textarea>
-      
-      <div class="input-container">
-        <input class={ form?.field === 'author' ? "invalid" : ""} name="author" type="text" minLength="3" maxLength="50" placeholder="Author (required)" required />
-        <input class={ form?.field === 'link' ? "invalid" : "" } name="link" type="text" minLength="10" maxLength="200" placeholder="Link" />
-      </div>
-      <button>Send</button>
-  
-  </form>
-</div>
+        if (result.type === 'success') {
+          successfulSubmission = true;
+        }
+      };
+    }}>
+
+        <div class="input-container">
+          <input class={ form?.field === 'entry' ? "invalid" : "" } name="entry" type="text" minLength="3" maxLength="50" placeholder="Entry (required)" bind:value={entry} required />
+          <input class={ form?.field === 'slug ' ? "invalid" : ""} name="slug" type="text" maxLength="50" placeholder="Slug" bind:value={entryAsSlug} readonly required />
+        </div>
+        <textarea class={ form?.field === 'description' ? "invalid" : ""} name="description" minLength="50" maxLength="1000" placeholder="Entry Definition (required)"></textarea>
+        <span class="character-count">50 - 1,000 characters</span>
+        
+        <textarea class={ form?.field === 'advanced_description' ? "invalid" : ""} name="advanced_description" minLength="50" placeholder="Extra Context"></textarea>
+        
+        <div class="input-container">
+          <input class={ form?.field === 'author' ? "invalid" : ""} name="author" type="text" minLength="3" maxLength="50" placeholder="Author (required)" required />
+          <input class={ form?.field === 'link' ? "invalid" : "" } name="link" type="text" minLength="10" maxLength="200" placeholder="Link" />
+        </div>
+        <button>Send</button>
+    
+    </form>
+  </div>
+{/if}
 <p>
   Email questions or comments to <a href="mailto:dystopiaglossary@pm.me">dystopiaglossary@pm.me</a>.
 </p>
