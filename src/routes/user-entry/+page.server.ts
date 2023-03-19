@@ -32,13 +32,13 @@ export const actions = {
       const { entry, author, slug, description } = payload;
 
       if (!Object.hasOwn(payload, "entry") || !isValid(entry)) {
-        return fail(400, { message: "Entry is required" });
+        return fail(400, { field: "entry", message: "Validation Error: Entry is required." });
       } else if (!Object.hasOwn(payload, "author") || !isValid(author)) {
-        return fail(400, { message: "Author is required" });
+        return fail(400, { field: "author", message: "Validation Error: Author is required." });
       } else if (!Object.hasOwn(payload, "slug") || !isValid(slug)) {
-        return fail(400, { message: "Slug" });
+        return fail(400, { field: "slug", message: "Validation Error: Slug is required." });
       } else if (!Object.hasOwn(payload, "description") || !isValid(description)) {
-        return fail(400, { message: "Entry Definition is required" });
+        return fail(400, { field: "description", message: "Validation Error: Entry Definition is required." });
       }
 
       const link = data.get("link") as NullableString;
@@ -63,7 +63,7 @@ export const actions = {
       });
 
       const value = await response.json();
-      console.log(value);
+
       return { success: true };
     } catch (e) {
       const error = e instanceof Error ? e : new Error(e);
