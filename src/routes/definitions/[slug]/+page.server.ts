@@ -17,8 +17,11 @@ export async function load({ params }) {
     ...definition,
     tags: tags.data.map((item) => ({ tag: item.attributes.tag, slug: item.attributes.slug })),
     description: marked.parse(description),
-    advanced_description: marked.parse(advanced_description),
   };
+
+  if(advanced_description){
+    updatedDefinition.advanced_description = marked.parse(advanced_description);
+  }
 
   return updatedDefinition;
 }

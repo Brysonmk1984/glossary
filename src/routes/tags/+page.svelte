@@ -48,8 +48,9 @@
   }
   ul {
     display: flex;
-    justify-content: space-between;
+
     flex-wrap: wrap;
+    gap: 20px;
     margin: 5px 15px;
   }
   li:last-child {
@@ -58,7 +59,7 @@
   }
   li {
     font-size: 1.3em;
-
+   
     margin-bottom:2em;
   }
   li a {

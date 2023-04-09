@@ -5,14 +5,17 @@ import TagsSection from "$lib/components/TagsSection.svelte";
 import { formatDate } from "$lib/utils/date.util";
 
   export let data : GlossaryDefinition;
+  export let {description, advanced_description} = data;
 </script>
 
 { #if !!data }
   <h1>{data.entry}</h1>
 
-  <DefinitionSection description={data.description} />
+  <DefinitionSection description={description} />
 
-  <ContextSection context={data.advanced_description} />
+  {#if advanced_description}
+    <ContextSection context={advanced_description} />
+  {/if}
 
   <div class="bottom-row">
     {#if !!data.tags?.length}
